@@ -12,7 +12,7 @@
   });
 
   app.controller('StoreController', function() {
-    this.products = gems;
+    this.products = books;
   });
 
 
@@ -28,18 +28,18 @@
 
   });
 
-  var gems = [{
-    name: 'Azurite',
-    description: "Some gems have hidden qualities beyond their luster, beyond their shine... Azurite is one of those gems.",
-    shine: 8,
-    price: 110.50,
+  var books = [{
+    name: 'The Fountainhead',
+    description: "When The Fountainhead was first published, Ayn Rand's daringly original literary vision and her groundbreaking philosophy, Objectivism, won immediate worldwide interest and acclaim. This instant classic is the story of an intransigent young architect, his violent battle against conventional standards, and his explosive love affair with a beautiful woman who struggles to defeat him.",
+    author: "Ayn Rand",
+    price: 6.48,
     rarity: 7,
     color: '#CCC',
-    faces: 14,
+    pages: 753,
     images: [
-      "img/gem-02.gif",
-      "img/gem-05.gif",
-      "img/gem-09.gif"
+      "img/fhead1.jpg",
+      "img/fhead2.jpg",
+      "img/fhead3.jpg"
     ],
     reviews: [{
       stars: 5,
@@ -53,17 +53,16 @@
       createdOn: 1397490980837
     }]
   }, {
-    name: 'Bloodstone',
-    description: "Origin of the Bloodstone is unknown, hence its low value. It has a very high shine and 12 sides, however.",
-    shine: 9,
-    price: 22.90,
+    name: 'The Simple Guide to Fresh Water Aquariums',
+    description: "The key to becoming a dedicated aquarium hobbyist is to succeed with your first aquarium. The Simple Guide to Freshwater Aquariums concentrates on providing you with a complete plan and all the information you need to choose and use the right-for-you aquarium equipment and the right-for-you fish and plants: it wants you to succeed. The information is presented in a completely straightforward text that’s easy to read, easy to understand - and very definitely easy to put to good use.",
+    author: "David E. Boruchowitz ",
+    price: 4.33,
     rarity: 6,
     color: '#EEE',
-    faces: 12,
+    pages: 254,
     images: [
-      "img/gem-01.gif",
-      "img/gem-03.gif",
-      "img/gem-04.gif",
+      "img/fish1.jpg",
+      "img/fish2.jpg",
     ],
     reviews: [{
       stars: 3,
