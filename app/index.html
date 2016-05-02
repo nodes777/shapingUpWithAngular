@@ -27,7 +27,7 @@
       <div class="list-group-item" ng-repeat="product in store.products | orderBy:'name'">
 
         <!-- $index Practice:  -->
-        <h3>{{product.name | uppercase}}<em class="pull-right">{{product.price | currency}}</em>
+        <h3>{{product.title | uppercase}}<em class="pull-right">{{product.price | currency}}</em>
         </h3>
         <p>{{product.author}}</p>
 

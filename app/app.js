@@ -15,16 +15,20 @@
     //this.products = books; //This is the local data, defined below
     var store = this;
     store.products = [];
-    var isbns = ["0452286379", "0793821010"];
+    var isbns = ["0452286379", "0793821010", "0761523391"];
     for(var i = 0; i < isbns.length; i++){
       var url = "https://www.googleapis.com/books/v1/volumes?q=isbn:"+isbns[i]+"&key=AIzaSyBQ9ddCXiRFaB8IoNO3ghXfk4SjlxZizJY";
         $http.get(url).success( function(data) {
-          console.log(data.items[0].volumeInfo.title);
-          console.log(data.items[0].volumeInfo.authors[0]);
-          console.log(data.items[0].volumeInfo.description);
-          console.log(data.items[0].volumeInfo.pageCount);
-          console.log("ISBN 10: "+isbns);
-          store.products = data;
+          var book ={};
+          book.title = data.items[0].volumeInfo.title;
+          book.author = data.items[0].volumeInfo.authors[0];
+          book.description = data.items[0].volumeInfo.description;
+          book.pageCount = data.items[0].volumeInfo.pageCount;
+          book.isbn = isbns[i];
+          console.log("ISBN 10: "+isbns[i]);
+          store.products.push(book);
+          console.log(book);
+          console.log(store.products);
        });
     }
   }]);
