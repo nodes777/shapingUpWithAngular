@@ -17,8 +17,8 @@
   <body ng-controller="StoreController as store">
     <!--  Store Header  -->
     <header>
-      <h1 class="text-center">My Favorite books</h1>
-      <h2 class="text-center">– an Angular store –</h2>
+      <h1 class="text-center">My Favorite Books</h1>
+      <h2 class="text-center">– an Angular Store –</h2>
     </header>
 
     <!--  Products Container  -->
@@ -29,6 +29,7 @@
         <!-- $index Practice:  -->
         <h3>{{product.name | uppercase}}<em class="pull-right">{{product.price | currency}}</em>
         </h3>
+        <p>{{product.author}}</p>
 
         <!-- Image Gallery  -->
         <div ng-show="product.images.length" ng-controller="GalleryController as gallery">
