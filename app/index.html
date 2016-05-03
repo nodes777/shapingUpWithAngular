@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="gemStore">
+<html ng-app="bookStore">
 
   <head>
     <meta charset="utf-8" />
@@ -24,7 +24,7 @@
     <!--  Products Container  -->
     <div class="list-group">
       <!--  Product Container  -->
-      <div class="list-group-item" ng-repeat="product in store.products | orderBy:'name'">
+      <div class="list-group-item" ng-repeat="product in store.products | orderBy:'title'">
 
         <!-- $index Practice:  -->
         <h3>{{product.title | uppercase}}<em class="pull-right">{{product.price | currency}}</em>
@@ -32,9 +32,9 @@
         <p>{{product.author}}</p>
 
         <!-- Image Gallery  -->
-        <div ng-show="product.images.length" ng-controller="GalleryController as gallery">
+        <div>
           <div class="img-wrap">
-            <img ng-src="{{product.images[gallery.imageIndex]}}" class="img-thumbnail center-block" />
+            <img ng-src="{{product.image}}" class="img-thumbnail center-block" />
           </div>
           <ul class="img-thumbnails clearfix">
             <li class="small-image pull-left thumbnail" ng-repeat="image in product.images" ng-click="gallery.currentImageChange($index)">

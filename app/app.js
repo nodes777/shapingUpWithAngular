@@ -1,7 +1,7 @@
 // Code goes here
 
 (function() {
-  var app = angular.module('gemStore', ['store-directives']);
+  var app = angular.module('bookStore', ['store-directives']);
 
   app.controller('GalleryController', function() {
     this.imageIndex = 0;
@@ -17,19 +17,21 @@
     store.products = [];
     var isbns = ["0452286379", "0793821010", "0761523391"];
     for(var i = 0; i < isbns.length; i++){
+      console.log(isbns[i]);
       var url = "https://www.googleapis.com/books/v1/volumes?q=isbn:"+isbns[i]+"&key=AIzaSyBQ9ddCXiRFaB8IoNO3ghXfk4SjlxZizJY";
-        $http.get(url).success( function(data) {
+        $http.get(url).success( function(data, isbns) {
           var book ={};
           book.title = data.items[0].volumeInfo.title;
           book.author = data.items[0].volumeInfo.authors[0];
           book.description = data.items[0].volumeInfo.description;
           book.pageCount = data.items[0].volumeInfo.pageCount;
           book.isbn = isbns[i];
-          console.log("ISBN 10: "+isbns[i]);
+          book.image = data.items[0].volumeInfo.imageLinks.thumbnail;
+          book.pubDate = data.items[0].volumeInfo.publishedDate;
+          book.reviews = {};
           store.products.push(book);
-          console.log(book);
-          console.log(store.products);
-       });
+
+       })
     }
   }]);
 
