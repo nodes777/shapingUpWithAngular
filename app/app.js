@@ -16,23 +16,28 @@
     var store = this;
     store.products = [];
     var isbns = ["0452286379", "0793821010", "0761523391"];
-    for(var i = 0; i < isbns.length; i++){
-      console.log(isbns[i]);
-      var url = "https://www.googleapis.com/books/v1/volumes?q=isbn:"+isbns[i]+"&key=AIzaSyBQ9ddCXiRFaB8IoNO3ghXfk4SjlxZizJY";
-        $http.get(url).success( function(data, isbns) {
-          var book ={};
+    isbns.forEach(function(isbn){
+      console.log(isbn);
+      var url = "https://www.googleapis.com/books/v1/volumes?q=isbn:"+isbn+"&key=AIzaSyBQ9ddCXiRFaB8IoNO3ghXfk4SjlxZizJY";
+      var book ={};
+        $http.get(url).success( function(data) {
+
+          /*Add Google Books Data*/
           book.title = data.items[0].volumeInfo.title;
           book.author = data.items[0].volumeInfo.authors[0];
           book.description = data.items[0].volumeInfo.description;
           book.pageCount = data.items[0].volumeInfo.pageCount;
-          book.isbn = isbns[i];
           book.image = data.items[0].volumeInfo.imageLinks.thumbnail;
           book.pubDate = data.items[0].volumeInfo.publishedDate;
-          book.reviews = {};
-          store.products.push(book);
 
-       })
-    }
+          /*Add Local Data*/
+          book.isbn = isbn;
+          book.reviews = {};
+
+          /*Push it to the store*/
+          store.products.push(book);
+       });
+    })
   }]);
 
 
