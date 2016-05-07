@@ -21,6 +21,13 @@ app.directive("specs", function() {
   };
 });
 
+app.directive("mytake", function() {//names here have to be lowercase? Product tabs is camel case in js, then dash seperated in html
+  return {
+    restrict: "E",
+    templateUrl: "myTake.html"
+  };
+});
+
 app.directive("productTabs", function() {
   return {
     restrict: "E",
