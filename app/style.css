@@ -1,5 +1,4 @@
 body{
-  max-width: 500px;
   margin: 0 auto;
   font-family: 'Lato', sans-serif;
 }
@@ -31,6 +30,17 @@ li.small-image img{
 img{
   max-width: 230px;
   max-height: 230px;
+}
+
+.row{
+  margin: 10px;
+}
+.books{
+  padding: 10px;
+}
+
+.graph{
+  padding: 10px;
 }
 
 .img-wrap {

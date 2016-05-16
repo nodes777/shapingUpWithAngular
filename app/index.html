@@ -21,34 +21,39 @@
       <h1 class="text-center">My Favorite Books</h1>
       <h2 class="text-center">– an Angular Store –</h2>
     </header>
+	<div class="row">
+	    <!--  Products Container  -->
+	    <div class="list-group col-md-6 books">
+	      <!--  Product Container  -->
+	      <div class="list-group-item" ng-repeat="product in store.products | orderBy:'title'">
 
-    <!--  Products Container  -->
-    <div class="list-group">
-      <!--  Product Container  -->
-      <div class="list-group-item" ng-repeat="product in store.products | orderBy:'title'">
+	        <!-- $index Practice:  -->
+	        <h3>{{product.title | uppercase}}<em class="pull-right">{{product.price | currency}}</em>
+	        </h3>
+	        <p>{{product.author}}</p>
 
-        <!-- $index Practice:  -->
-        <h3>{{product.title | uppercase}}<em class="pull-right">{{product.price | currency}}</em>
-        </h3>
-        <p>{{product.author}}</p>
+	        <!-- Image Gallery  -->
+	        <div>
+	          <div class="img-wrap">
+	            <img ng-src="{{product.image}}" class="img-thumbnail center-block" />
+	          </div>
+	          <ul class="img-thumbnails clearfix">
+	            <li class="small-image pull-left thumbnail" ng-repeat="image in product.images" ng-click="gallery.currentImageChange($index)">
+	              <img ng-src="{{image}}" />
+	            </li>
+	          </ul>
+	        </div>
 
-        <!-- Image Gallery  -->
-        <div>
-          <div class="img-wrap">
-            <img ng-src="{{product.image}}" class="img-thumbnail center-block" />
-          </div>
-          <ul class="img-thumbnails clearfix">
-            <li class="small-image pull-left thumbnail" ng-repeat="image in product.images" ng-click="gallery.currentImageChange($index)">
-              <img ng-src="{{image}}" />
-            </li>
-          </ul>
-        </div>
+	        <!-- Product Tabs  -->
+	        <product-tabs></product-tabs>
 
-        <!-- Product Tabs  -->
-        <product-tabs></product-tabs>
-
-      </div>
-    </div>
+	      </div>
+	    </div>
+	    <div class ="col-md-6 graph">
+	    	<div id="chart"></div>
+	    </div>
+	    </div>
   </body>
-
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+  <script src="d3.js"></script>
 </html>
