@@ -1,6 +1,6 @@
 # Angular Book Store
 
-An extension of [Code School](https://www.codeschool.com/courses/shaping-up-with-angular-js) course on angular.js . This was made as my first foray into Angular, and after following the course I changed it from a gem store to a book store showcasing my favorite books. Instead of using all local data to display the books, I switched to using $http.get() to make an AJAX call to Google Books to pull data from there, because why host more data than you need to, ya know? I also added a new product tab that describes my experience with the book and why it's one of my favorites.
+An extension of [Code School](https://www.codeschool.com/courses/shaping-up-with-angular-js) course on Angular.js. This was made as my first foray into Angular, and after following the course I changed it from a gem store to a book store showcasing my favorite books. Instead of using all local data to display the books, I switched to using $http.get() to make an AJAX call to Google Books to pull data from there, because why host more data than you need to, ya know? I also added a new product tab that describes my experience with the book and why it's one of my favorites.
 
 ## Setup
 
