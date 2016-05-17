@@ -13,10 +13,9 @@
     app.controller('StoreController', ['$http', function($http) {
         var store = this;
         store.products = [];
-        /*For each item in the data below*/
-        
 
 function getBooks(callback){
+    /*For each item in the data below*/
     localData.forEach(function(localData) {
           /*Create an empty book object*/
             var book = {};
@@ -45,141 +44,159 @@ function getBooks(callback){
             store.products.push(book);
         })
     // and when the asynchronous stuff is complete
-    callback();
+    callback(store.products);
 }
 
 function babylon(){
-    // call first function and pass in a callback function which
+    // call getBooks function and pass in a callback function which
     // first function runs when it has completed
     getBooks(log);
-    function log() {
+    //define the callback function, named log
+    function log(fullStore) {
         console.log('huzzah, I\'m done!');
-        console.log(store.products[0]);
-        console.log(store.products[0].pageCount);
-        var bardata = [];
-        for (var i = 0; i < store.products.length; i++) {
-            bardata.push(store.products[i].price);
-        }
-
-           var margin = { top: 30, right: 30, bottom: 40, left:50 }
-
-var height = 400 - margin.top - margin.bottom,
-    width = 600 - margin.left - margin.right,
-    barWidth = 50,
-    barOffset = 5;
-
-var tempColor;
-
-var colors = d3.scale.linear()
-.domain([0, bardata.length*.33, bardata.length*.66, bardata.length])
-.range(['#B58929','#C61C6F', '#268BD2', '#85992C'])
-
-var yScale = d3.scale.linear()
-        .domain([0, d3.max(bardata)])
-        .range([0, height]);
-
-var xScale = d3.scale.ordinal()
-        .domain(d3.range(0, bardata.length))
-        .rangeBands([0, width], 0.2)
-
-var tooltip = d3.select('body').append('div')
-        .style('position', 'absolute')
-        .style('padding', '0 10px')
-        .style('background', 'white')
-        .style('opacity', 0)
-
-var myChart = d3.select('#chart').append('svg')
-    .style('background', '#F8F8F8')
-    .attr('width', width + margin.left + margin.right)
-    .attr('height', height + margin.top + margin.bottom)
-    .append('g')
-    .attr('transform', 'translate('+ margin.left +', '+ margin.top +')')
-    .selectAll('rect').data(bardata)
-    .enter().append('rect')
-        .style('fill', function(d,i) {
-            return colors(i);
-        })
-        .attr('width', xScale.rangeBand())
-        .attr('x', function(d,i) {
-            return xScale(i);
-        })
-        .attr('height', 0)
-        .attr('y', height)
-
-    .on('mouseover', function(d) {
-
-        tooltip.transition()
-            .style('opacity', .9)
-
-        tooltip.html(d)
-            .style('left', (d3.event.pageX - 35) + 'px')
-            .style('top',  (d3.event.pageY - 30) + 'px')
-
-
-        tempColor = this.style.fill;
-        d3.select(this)
-            .transition()
-            .style('opacity', .5)
-            .style('fill', 'gold')
-            .duration(100)
-    })
-
-    .on('mouseout', function(d) {
-        d3.select(this)
-            .transition()
-            .style('opacity', 1)
-            .style('fill', tempColor)
-            .duration(200)
-    })
-
-myChart.transition()
-    .attr('height', function(d) {
-        return yScale(d);
-    })
-    .attr('y', function(d) {
-        return height - yScale(d);
-    })
-    .delay(function(d, i) {
-        return i * 100;
-    })
-    .duration(1500)
-    .ease('elastic')
-
-var vGuideScale = d3.scale.linear()
-    .domain([0, d3.max(bardata)])
-    .range([height, 0])
-
-var vAxis = d3.svg.axis()
-    .scale(vGuideScale)
-    .orient('left')
-    .ticks(10)
-
-var vGuide = d3.select('svg').append('g')
-    vAxis(vGuide)
-    vGuide.attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
-    vGuide.selectAll('path')
-        .style({ fill: 'none', stroke: "#000"})
-    vGuide.selectAll('line')
-        .style({ stroke: "#000"})
-
-var hAxis = d3.svg.axis()
-    .scale(xScale)
-    .orient('bottom')//put book names below
-    /*.tickValues(xScale.domain().filter(function(d, i) {
-        return !(i % (bardata.length/5));
-    }))*/
-
-var hGuide = d3.select('svg').append('g')
-    hAxis(hGuide)
-    hGuide.attr('transform', 'translate(' + margin.left + ', ' + (height + margin.top) + ')')
-    hGuide.selectAll('path')
-        .style({ fill: 'none', stroke: "#000"})
-    hGuide.selectAll('line')
-        .style({ stroke: "#000"})
+        console.log(fullStore[0]);
+        console.log(fullStore);
+        console.log("pageCount: "+fullStore[0].pageCount);
+        console.log("price: "+fullStore[0].price);
+       makeGraph();
     }
 }
 babylon();
 
+function makeGraph(){
+    var bardata = [];
+        for (var i = 0; i < store.products.length; i++) {
+            bardata.push(store.products[i].price);
+        }
+
+           var margin = { top: 30, right: 30, bottom: 40, left:70 }
+
+            var height = 400 - margin.top - margin.bottom,
+                width = 600 - margin.left - margin.right,
+                barWidth = 50,
+                barOffset = 5;
+
+            var tempColor;
+
+            var colors = d3.scale.linear()
+            .domain([0, bardata.length*.33, bardata.length*.66, bardata.length])
+            .range(['#B58929','#C61C6F', '#268BD2', '#85992C'])
+
+            var yScale = d3.scale.linear()
+                    .domain([0, d3.max(bardata)])
+                    .range([0, height]);
+
+            var xScale = d3.scale.ordinal()
+                    .domain(d3.range(0, bardata.length))
+                    .rangeBands([0, width], 0.2)
+
+            var tooltip = d3.select('body').append('div')
+                    .style('position', 'absolute')
+                    .style('padding', '0 10px')
+                    .style('background', 'white')
+                    .style('opacity', 0)
+
+            var myChart = d3.select('#chart').append('svg')
+                .style('background', '#F8F8F8')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', 'translate('+ margin.left +', '+ margin.top +')')
+                .selectAll('rect').data(bardata)
+                .enter().append('rect')
+                    .style('fill', function(d,i) {
+                        return colors(i);
+                    })
+                    .attr('width', xScale.rangeBand())
+                    .attr('x', function(d,i) {
+                        return xScale(i);
+                    })
+                    .attr('height', 0)
+                    .attr('y', height)
+
+                .on('mouseover', function(d) {
+
+                    tooltip.transition()
+                        .style('opacity', .9)
+
+                    tooltip.html("$ "+d)
+                        .style('left', (d3.event.pageX - 35) + 'px')
+                        .style('top',  (d3.event.pageY - 30) + 'px')
+
+
+                    tempColor = this.style.fill;
+                    d3.select(this)
+                        .transition()
+                        .style('opacity', .5)
+                        .style('fill', 'gold')
+                        .duration(100)
+                })
+
+                .on('mouseout', function(d) {
+                    d3.select(this)
+                        .transition()
+                        .style('opacity', 1)
+                        .style('fill', tempColor)
+                        .duration(200)
+                })
+
+            myChart.transition()
+                .attr('height', function(d) {
+                    return yScale(d);
+                })
+                .attr('y', function(d) {
+                    return height - yScale(d);
+                })
+                .delay(function(d, i) {
+                    return i * 100;
+                })
+                .duration(1500)
+                .ease('elastic')
+
+            var vGuideScale = d3.scale.linear()
+                .domain([0, d3.max(bardata)])
+                .range([height, 0])
+
+            var vAxis = d3.svg.axis()
+                .scale(vGuideScale)
+                .orient('left')
+                .ticks(10)
+
+            var vGuide = d3.select('svg').append('g')
+                vAxis(vGuide)
+                vGuide.attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
+                vGuide.selectAll('path')
+                    .style({ fill: 'none', stroke: "#000"})
+                vGuide.selectAll('line')
+                    .style({ stroke: "#000"})
+
+            var vLabel = d3.select('svg').append('g')
+                    .attr("class", "y axis")
+                    .call(vAxis)
+                  .append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 1)//fix the y pos of "price"
+                    .attr("x",0 - (height / 2))
+                    .attr("dy", "1.7em")
+                    .style("text-anchor", "end")
+                    .text("Price");
+
+            var hAxis = d3.svg.axis()
+                .scale(xScale)
+                .orient('bottom')
+                //put book names below
+                /*.tickValues(xScale.domain().filter(function(d, i) {
+                    return !(i % (bardata.length/5));
+                }))*/
+
+            var hGuide = d3.select('svg').append('g')
+                hAxis(hGuide)
+                hGuide.attr('transform', 'translate(' + margin.left + ', ' + (height + margin.top) + ')')
+                hGuide.selectAll('path')
+                    .style({ fill: 'none', stroke: "#000"})
+                hGuide.selectAll('line')
+                    .style({ stroke: "#000"})
+    }
     }]);
 
     app.controller("ReviewController", function() {
@@ -230,7 +247,7 @@ babylon();
     },{
       name: 'The Sims',
       isbn: '0761523391',
-      price: 1,
+      price: 1.00,
        reviews: [{
             stars: 5,
             body: "Great game, great book!",
